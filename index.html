@@ -19,6 +19,56 @@
             padding: 20px;
         }
 
+        body.dark {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        body.dark .card {
+            background: #1e293b;
+            color: #e2e8f0;
+        }
+
+        body.dark .card h3 {
+            color: #f1f5f9;
+        }
+
+        body.dark .achievement-card {
+            background: #334155;
+        }
+
+        body.dark .rank-item, body.dark .member-item {
+            border-bottom-color: #334155;
+        }
+
+        body.dark .chat-messages {
+            background: #0f172a;
+        }
+
+        body.dark .message {
+            background: #334155;
+            color: white;
+        }
+
+        body.dark .message-mine {
+            background: #667eea;
+        }
+
+        body.dark .chat-input {
+            background: #334155;
+            color: white;
+            border-color: #475569;
+        }
+
+        body.dark .status-input {
+            background: #334155;
+            color: white;
+            border-color: #475569;
+        }
+
+        body.dark .timer-block {
+            background: #0f172a;
+        }
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -46,9 +96,18 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
 
+        body.dark .login-card {
+            background: #1e293b;
+            color: white;
+        }
+
         .login-card h2 {
             margin-bottom: 15px;
             color: #1a1a2e;
+        }
+
+        body.dark .login-card h2 {
+            color: white;
         }
 
         .btn-google {
@@ -66,6 +125,12 @@
             margin-top: 20px;
         }
 
+        body.dark .btn-google {
+            background: #334155;
+            color: white;
+            border-color: #475569;
+        }
+
         /* Шапка */
         .header {
             background: white;
@@ -76,6 +141,11 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        body.dark .header {
+            background: #1e293b;
+            color: white;
         }
 
         .logo {
@@ -135,7 +205,7 @@
             color: #1a1a2e;
         }
 
-        /* НОВАЯ ФУНКЦИЯ 1: Кастомный статус */
+        /* Статус */
         .status-input {
             width: 100%;
             padding: 12px 16px;
@@ -151,7 +221,7 @@
             border-color: #667eea;
         }
 
-        /* НОВАЯ ФУНКЦИЯ 2: Прогресс-бар цели */
+        /* Прогресс-бар */
         .goal-section {
             margin: 20px 0;
         }
@@ -162,6 +232,10 @@
             margin-bottom: 8px;
             font-size: 14px;
             color: #666;
+        }
+
+        body.dark .goal-label {
+            color: #94a3b8;
         }
 
         .progress-bar {
@@ -324,6 +398,15 @@
             border-bottom: 1px solid #e0e0e0;
         }
 
+        .rank-number {
+            font-weight: bold;
+            width: 35px;
+        }
+
+        .rank-number.gold { color: #fbbf24; }
+        .rank-number.silver { color: #94a3b8; }
+        .rank-number.bronze { color: #d97706; }
+
         .online-dot {
             width: 8px;
             height: 8px;
@@ -346,6 +429,101 @@
         .member-status {
             font-size: 11px;
             color: #999;
+        }
+
+        body.dark .member-status {
+            color: #94a3b8;
+        }
+
+        /* Кнопки действий */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .theme-btn {
+            background: #8b5cf6;
+            color: white;
+        }
+
+        /* Модалка */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 28px;
+            max-width: 450px;
+            width: 90%;
+        }
+
+        body.dark .modal-content {
+            background: #1e293b;
+            color: white;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        /* Уведомления */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #667eea;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
         @media (max-width: 768px) {
@@ -391,10 +569,8 @@
             <div class="card">
                 <h3>🎯 Моя сессия</h3>
                 
-                <!-- НОВАЯ ФУНКЦИЯ 1: Кастомный статус -->
                 <input type="text" id="statusInput" class="status-input" maxlength="50" placeholder="Напиши свой статус...">
                 
-                <!-- НОВАЯ ФУНКЦИЯ 2: Ежедневная цель -->
                 <div class="goal-section">
                     <div class="goal-label">
                         <span>🎯 Дневная цель</span>
@@ -412,6 +588,11 @@
                         <button id="pauseBtn" class="timer-btn btn-pause">Пауза</button>
                         <button id="stopBtn" class="timer-btn btn-stop">Стоп</button>
                     </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="statsBtn" class="action-btn" style="background: #667eea; color: white;">📊 Статистика</button>
+                    <button id="themeBtn" class="action-btn theme-btn">🎨 Тема</button>
                 </div>
             </div>
 
@@ -445,6 +626,17 @@
     </div>
 </div>
 
+<!-- Модалка статистики -->
+<div id="statsModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>📊 Моя статистика</h3>
+            <button class="close-modal" id="closeModalBtn">&times;</button>
+        </div>
+        <div id="statsContent">Загрузка...</div>
+    </div>
+</div>
+
 <script>
     const SUPABASE_URL = 'https://oehsdmymjanazugnmrhi.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_P2C0spTptEtbFwopcsjCLQ_iSoLnED7';
@@ -457,7 +649,29 @@
     let studyMinutes = 0;
     let timerInterval = null;
 
-    // Функции таймера
+    // Тема
+    function loadTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark');
+        }
+    }
+
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        const isDark = document.body.classList.contains('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        showNotification('Тема изменена', isDark ? 'Тёмная тема' : 'Светлая тема');
+    }
+
+    function showNotification(title, message) {
+        const notif = document.createElement('div');
+        notif.className = 'notification';
+        notif.innerHTML = `<strong>${title}</strong><br><small>${message}</small>`;
+        document.body.appendChild(notif);
+        setTimeout(() => notif.remove(), 3000);
+    }
+
     function formatTime(minutes) {
         const hrs = Math.floor(minutes / 60);
         const mins = minutes % 60;
@@ -546,7 +760,6 @@
         await loadGroup();
     }
 
-    // НОВАЯ ФУНКЦИЯ: Обновление прогресса цели
     async function updateGoalProgress() {
         if (!currentUserId) return;
         const today = new Date().toISOString().split('T')[0];
@@ -566,7 +779,6 @@
         document.getElementById('goalFill').style.width = `${percent}%`;
     }
 
-    // НОВАЯ ФУНКЦИЯ: Обновление кастомного статуса
     async function updateCustomStatus() {
         const input = document.getElementById('statusInput');
         const newStatus = input.value.trim();
@@ -580,7 +792,6 @@
         await loadGroup();
     }
 
-    // Достижения
     async function loadAchievements() {
         if (!currentUserId) return;
         
@@ -622,10 +833,14 @@
         const { error } = await supabase
             .from('user_achievements')
             .insert({ user_id: currentUserId, achievement_id: achievementId });
-        if (error && error.code !== '23505') console.error('Error:', error);
+        if (error && error.code !== '23505') {
+            console.error('Error:', error);
+        } else if (!error) {
+            const ach = { 1: '🌅 Morning Star', 2: '🎯 First Step', 3: '🏃 Endurance', 4: '💪 Dedication', 5: '🗣️ Chatterbox', 6: '🔄 Phoenix', 7: '⭐ Heart of Team' };
+            showNotification('Новое достижение!', ach[achievementId]);
+        }
     }
 
-    // Чат
     async function loadMessages() {
         const { data } = await supabase
             .from('messages')
@@ -683,7 +898,6 @@
         await loadRanking();
     }
 
-    // Рейтинг
     async function loadRanking() {
         const { data } = await supabase
             .from('profiles')
@@ -696,16 +910,23 @@
         if (!container) return;
         if (!data || data.length === 0) { container.innerHTML = '<div>Нет данных</div>'; return; }
         
-        container.innerHTML = data.map((user, idx) => `
-            <div class="rank-item">
-                <span style="font-weight:600;">${idx+1}.</span>
-                <span><strong>${escapeHtml(user.username)}</strong> (${user.level} ур.)</span>
-                <span>${Math.floor(user.total_study_minutes / 60)}ч</span>
-            </div>
-        `).join('');
+        container.innerHTML = data.map((user, idx) => {
+            let medal = '';
+            if (idx === 0) medal = '🥇';
+            else if (idx === 1) medal = '🥈';
+            else if (idx === 2) medal = '🥉';
+            else medal = `${idx+1}.`;
+            
+            return `
+                <div class="rank-item">
+                    <span class="rank-number ${idx === 0 ? 'gold' : idx === 1 ? 'silver' : idx === 2 ? 'bronze' : ''}">${medal}</span>
+                    <span><strong>${escapeHtml(user.username)}</strong> (${user.level} ур.)</span>
+                    <span>${Math.floor(user.total_study_minutes / 60)}ч</span>
+                </div>
+            `;
+        }).join('');
     }
 
-    // Группа
     async function loadGroup() {
         const { data } = await supabase.from('profiles').select('*').order('username');
         if (!data) return;
@@ -727,7 +948,53 @@
         `).join('');
     }
 
-    // Авторизация
+    async function showStats() {
+        if (!currentUserId) return;
+        
+        const { count: msgCount } = await supabase
+            .from('messages')
+            .select('*', { count: 'exact', head: true })
+            .eq('user_id', currentUserId);
+        
+        const { data: achievements } = await supabase
+            .from('user_achievements')
+            .select('*, achievements(name)')
+            .eq('user_id', currentUserId);
+        
+        const { data: profile } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', currentUserId)
+            .single();
+        
+        const { data: stats } = await supabase
+            .from('daily_activity')
+            .select('study_minutes, activity_date')
+            .eq('user_id', currentUserId)
+            .order('activity_date', { ascending: false })
+            .limit(7);
+        
+        const totalSec = profile?.total_study_minutes || 0;
+        const hours = Math.floor(totalSec / 60);
+        const mins = totalSec % 60;
+        
+        let weekActivity = '';
+        if (stats) {
+            weekActivity = stats.map(s => `<div>${s.activity_date}: ${s.study_minutes} мин</div>`).join('');
+        }
+        
+        document.getElementById('statsContent').innerHTML = `
+            <div class="stat-item"><span>👤 Имя:</span><span>${escapeHtml(profile?.username)}</span></div>
+            <div class="stat-item"><span>📧 Email:</span><span>${escapeHtml(profile?.email)}</span></div>
+            <div class="stat-item"><span>⏱ Всего учёбы:</span><span>${hours}ч ${mins}м</span></div>
+            <div class="stat-item"><span>💬 Сообщений:</span><span>${msgCount || 0}</span></div>
+            <div class="stat-item"><span>🏆 Достижений:</span><span>${achievements?.length || 0}</span></div>
+            <div class="stat-item"><span>🎯 Уровень:</span><span>${profile?.level || 1}</span></div>
+            <div class="stat-item"><span>📅 Активность за неделю:</span><span>${weekActivity || 'Нет данных'}</span></div>
+        `;
+        document.getElementById('statsModal').classList.add('active');
+    }
+
     async function recordLogin() {
         if (!currentUserId) return;
         const today = new Date().toISOString().split('T')[0];
@@ -783,10 +1050,14 @@
     }
 
     async function login() {
-        await supabase.auth.signInWithOAuth({
+        const { error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: { redirectTo: SITE_URL }
         });
+        if (error) {
+            console.error('Login error:', error);
+            alert('Ошибка входа: ' + error.message);
+        }
     }
 
     async function logout() {
@@ -842,6 +1113,14 @@
     document.getElementById('stopBtn')?.addEventListener('click', stopTimer);
     document.getElementById('statusInput')?.addEventListener('blur', updateCustomStatus);
     document.getElementById('statusInput')?.addEventListener('keypress', (e) => { if (e.key === 'Enter') updateCustomStatus(); });
+    document.getElementById('statsBtn')?.addEventListener('click', showStats);
+    document.getElementById('themeBtn')?.addEventListener('click', toggleTheme);
+    document.getElementById('closeModalBtn')?.addEventListener('click', () => document.getElementById('statsModal').classList.remove('active'));
+    document.getElementById('statsModal')?.addEventListener('click', (e) => {
+        if (e.target === document.getElementById('statsModal')) {
+            document.getElementById('statsModal').classList.remove('active');
+        }
+    });
 
     supabase.auth.onAuthStateChange((event, session) => {
         if (event === 'SIGNED_IN' && session?.user) onAuthStateChange(session.user);
@@ -851,6 +1130,8 @@
     supabase.auth.getSession().then(({ data: { session } }) => {
         onAuthStateChange(session?.user || null);
     });
+    
+    loadTheme();
 </script>
 </body>
 </html>
