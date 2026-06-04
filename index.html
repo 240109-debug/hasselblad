@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudyTrack | Минималистичный трекер</title>
+    <title>StudyTrack | Учебный трекер</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * {
@@ -13,34 +13,14 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #ffffff;
-            color: #111827;
-            transition: background 0.3s, color 0.3s;
-            padding: 32px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-        }
-
-        body.dark {
-            background: #0f172a;
-            color: #f1f5f9;
-        }
-
-        body.dark .card {
-            background: #1e293b;
-            border-color: #334155;
-        }
-
-        body.dark .message-item {
-            background: #334155;
-        }
-
-        body.dark .message-item.mine {
-            background: #3b82f6;
+            padding: 20px;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -48,21 +28,8 @@
             display: none !important;
         }
 
-        .card {
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
-            border-radius: 24px;
-            padding: 24px;
-            margin-bottom: 24px;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-        }
-
-        .login-wrapper {
+        /* Логин форма */
+        .login-container {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -70,177 +37,239 @@
         }
 
         .login-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
             text-align: center;
             max-width: 400px;
-            width: 100%;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
 
-        .google-btn {
-            background: #111827;
-            color: white;
-            border: none;
-            border-radius: 40px;
-            padding: 14px 24px;
-            font-weight: 600;
+        .login-card h2 {
+            margin-bottom: 15px;
+            color: #1a1a2e;
+        }
+
+        .btn-google {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 12px 24px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
             cursor: pointer;
-            width: 100%;
-            margin-top: 24px;
-            font-size: 16px;
+            font-weight: 600;
+            margin-top: 20px;
         }
 
-        body.dark .google-btn {
-            background: #f1f5f9;
-            color: #111827;
-        }
-
-        .google-btn:hover {
-            opacity: 0.9;
-        }
-
+        /* Шапка */
         .header {
+            background: white;
+            border-radius: 20px;
+            padding: 15px 25px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 32px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .logo {
             font-size: 24px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .user-area {
+        .user-info {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
 
         .avatar {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 600;
             color: white;
+            font-weight: bold;
         }
 
-        .logout-btn {
-            background: none;
-            border: 1px solid #e5e7eb;
-            padding: 8px 20px;
-            border-radius: 40px;
+        .btn-logout {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 10px;
             cursor: pointer;
         }
 
+        /* Сетка */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h3 {
+            margin-bottom: 16px;
+            padding-left: 10px;
+            border-left: 4px solid #667eea;
+            color: #1a1a2e;
+        }
+
+        /* НОВАЯ ФУНКЦИЯ 1: Кастомный статус */
         .status-input {
             width: 100%;
             padding: 12px 16px;
-            border: 1px solid #e5e7eb;
-            border-radius: 60px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
             font-size: 16px;
             margin: 16px 0;
-            background: white;
+            outline: none;
+            transition: border 0.2s;
         }
 
-        body.dark .status-input {
-            background: #334155;
-            border-color: #475569;
-            color: white;
+        .status-input:focus {
+            border-color: #667eea;
         }
 
-        .progress-section {
+        /* НОВАЯ ФУНКЦИЯ 2: Прогресс-бар цели */
+        .goal-section {
             margin: 20px 0;
         }
 
-        .progress-label {
+        .goal-label {
             display: flex;
             justify-content: space-between;
             margin-bottom: 8px;
             font-size: 14px;
+            color: #666;
         }
 
-        .progress-bar-bg {
-            background: #e5e7eb;
-            border-radius: 60px;
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 10px;
             height: 12px;
             overflow: hidden;
         }
 
-        .progress-bar-fill {
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
             width: 0%;
             height: 100%;
-            border-radius: 60px;
+            border-radius: 10px;
             transition: width 0.3s;
         }
 
-        .timer-circle {
+        /* Таймер */
+        .timer-block {
             text-align: center;
             padding: 20px;
+            background: #f0f2f5;
+            border-radius: 16px;
+            margin: 16px 0;
         }
 
         .timer-display {
-            font-size: 56px;
-            font-weight: 700;
+            font-size: 48px;
+            font-weight: bold;
             font-family: monospace;
-            margin: 20px 0;
-            color: #3b82f6;
+            color: #667eea;
         }
 
         .timer-buttons {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             justify-content: center;
+            margin-top: 16px;
         }
 
         .timer-btn {
-            background: none;
-            border: 1px solid #e5e7eb;
             padding: 10px 20px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-        .timer-btn.start {
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            color: white;
             border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
         }
 
-        .chat-messages {
-            height: 320px;
-            overflow-y: auto;
-            margin-bottom: 16px;
-            display: flex;
-            flex-direction: column;
+        .btn-start { background: #2ecc71; color: white; }
+        .btn-pause { background: #f39c12; color: white; }
+        .btn-stop { background: #e74c3c; color: white; }
+
+        /* Достижения */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
             gap: 12px;
         }
 
-        .message-item {
-            background: #f3f4f6;
-            border-radius: 20px;
-            padding: 12px 16px;
-            max-width: 80%;
-            align-self: flex-start;
+        .achievement-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            transition: all 0.2s;
         }
 
-        .message-item.mine {
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+        .achievement-card.earned {
+            background: linear-gradient(135deg, #f9d423, #ff4e50);
             color: white;
-            align-self: flex-end;
+        }
+
+        .achievement-icon {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .achievement-name {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Чат */
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .message {
+            margin-bottom: 12px;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 12px;
+            max-width: 80%;
+        }
+
+        .message-mine {
+            margin-left: auto;
+            background: #667eea;
+            color: white;
         }
 
         .message-sender {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             margin-bottom: 4px;
         }
@@ -248,155 +277,169 @@
         .message-reactions {
             display: flex;
             gap: 8px;
-            margin-top: 8px;
+            margin-top: 6px;
         }
 
         .reaction-btn {
             background: none;
             border: none;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 12px;
             opacity: 0.6;
         }
 
         .chat-input-area {
             display: flex;
-            gap: 12px;
+            gap: 10px;
         }
 
         .chat-input {
             flex: 1;
-            padding: 12px 16px;
-            border: 1px solid #e5e7eb;
-            border-radius: 60px;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
             outline: none;
         }
 
         .send-btn {
-            background: #111827;
+            padding: 12px 24px;
+            background: #667eea;
             color: white;
             border: none;
-            border-radius: 60px;
-            padding: 0 24px;
+            border-radius: 25px;
             cursor: pointer;
         }
 
-        .rank-list, .member-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+        /* Рейтинг и группа */
+        .rank-list, .group-list {
+            max-height: 280px;
+            overflow-y: auto;
         }
 
         .rank-item, .member-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #e5e7eb;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
         }
 
-        .achievements-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 16px;
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
         }
 
-        .achievement-card {
-            background: #f9fafb;
-            border-radius: 16px;
-            padding: 16px;
-            text-align: center;
+        .online-dot.online {
+            background: #2ecc71;
+            box-shadow: 0 0 5px #2ecc71;
+            animation: pulse 1.5s infinite;
         }
 
-        .achievement-card.earned {
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            color: white;
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
-        .achievement-icon {
-            font-size: 32px;
-            margin-bottom: 8px;
+        .member-status {
+            font-size: 11px;
+            color: #999;
         }
 
         @media (max-width: 768px) {
-            body { padding: 16px; }
-            .grid-2 { grid-template-columns: 1fr; }
-            .timer-display { font-size: 40px; }
+            .grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
 
-<!-- Login Page -->
-<div id="loginPage" class="login-wrapper">
-    <div class="login-card card">
-        <h1 style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">StudyTrack</h1>
-        <p style="margin-top: 8px; color: #6b7280;">минималистичный трекер учёбы</p>
-        <button id="googleLoginBtn" class="google-btn">Войти через Google</button>
+<!-- Страница входа -->
+<div id="loginPage" class="login-container">
+    <div class="login-card">
+        <h2>📚 StudyTrack</h2>
+        <p style="margin: 15px 0;">Войдите через Google</p>
+        <button id="googleLoginBtn" class="btn-google">
+            <svg width="20" height="20" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+            </svg>
+            Войти через Google
+        </button>
     </div>
 </div>
 
-<!-- Main App -->
+<!-- Основное приложение -->
 <div id="app" class="container hidden">
     <div class="header">
-        <div class="logo">StudyTrack</div>
-        <div class="user-area">
-            <span id="userName"></span>
+        <div class="logo">📖 StudyTrack</div>
+        <div class="user-info">
+            <span id="userName">Загрузка...</span>
             <div class="avatar" id="userAvatar">A</div>
-            <button id="logoutBtn" class="logout-btn">Выйти</button>
+            <button id="logoutBtn" class="btn-logout">Выйти</button>
         </div>
     </div>
 
-    <div class="grid-2">
+    <div class="grid">
+        <!-- Левая колонка -->
         <div>
             <div class="card">
-                <h3 style="margin-bottom: 8px;">Мой статус</h3>
-                <input type="text" id="statusInput" class="status-input" maxlength="50" placeholder="Что делаешь?">
+                <h3>🎯 Моя сессия</h3>
                 
-                <div class="progress-section">
-                    <div class="progress-label">
-                        <span>Дневная цель</span>
-                        <span id="goalProgressText">0 / 60 мин</span>
+                <!-- НОВАЯ ФУНКЦИЯ 1: Кастомный статус -->
+                <input type="text" id="statusInput" class="status-input" maxlength="50" placeholder="Напиши свой статус...">
+                
+                <!-- НОВАЯ ФУНКЦИЯ 2: Ежедневная цель -->
+                <div class="goal-section">
+                    <div class="goal-label">
+                        <span>🎯 Дневная цель</span>
+                        <span id="goalText">0 / 60 мин</span>
                     </div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar-fill" id="goalProgressFill"></div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="goalFill"></div>
                     </div>
                 </div>
 
-                <div class="timer-circle">
+                <div class="timer-block">
                     <div class="timer-display" id="timerDisplay">0 мин</div>
                     <div class="timer-buttons">
-                        <button id="startTimerBtn" class="timer-btn start">Старт</button>
-                        <button id="pauseTimerBtn" class="timer-btn">Пауза</button>
-                        <button id="stopTimerBtn" class="timer-btn">Стоп</button>
+                        <button id="startBtn" class="timer-btn btn-start">Старт</button>
+                        <button id="pauseBtn" class="timer-btn btn-pause">Пауза</button>
+                        <button id="stopBtn" class="timer-btn btn-stop">Стоп</button>
                     </div>
                 </div>
             </div>
 
             <div class="card">
-                <h3 style="margin-bottom: 16px;">Достижения</h3>
+                <h3>🏆 Мои достижения</h3>
                 <div id="achievementsList" class="achievements-grid">Загрузка...</div>
             </div>
         </div>
 
+        <!-- Правая колонка -->
         <div>
             <div class="card">
-                <h3 style="margin-bottom: 16px;">Чат</h3>
+                <h3>💬 Чат</h3>
                 <div id="chatMessages" class="chat-messages">Загрузка...</div>
                 <div class="chat-input-area">
-                    <input type="text" id="chatInput" class="chat-input" placeholder="Напиши сообщение...">
+                    <input type="text" id="chatInput" class="chat-input" placeholder="Сообщение...">
                     <button id="sendBtn" class="send-btn">Отправить</button>
                 </div>
             </div>
 
             <div class="card">
-                <h3 style="margin-bottom: 16px;">Рейтинг студентов</h3>
+                <h3>🏆 Топ студентов</h3>
                 <div id="rankingList" class="rank-list">Загрузка...</div>
             </div>
 
             <div class="card">
-                <h3 style="margin-bottom: 16px;">Группа</h3>
-                <div id="groupList" class="member-list">Загрузка...</div>
+                <h3>👥 Группа</h3>
+                <div id="groupList" class="group-list">Загрузка...</div>
             </div>
         </div>
     </div>
@@ -414,18 +457,7 @@
     let studyMinutes = 0;
     let timerInterval = null;
 
-    // Автоматическая тема
-    function setAutoTheme() {
-        const hour = new Date().getHours();
-        if (hour >= 19 || hour < 7) {
-            document.body.classList.add('dark');
-        } else {
-            document.body.classList.remove('dark');
-        }
-    }
-    setAutoTheme();
-    setInterval(setAutoTheme, 60000);
-
+    // Функции таймера
     function formatTime(minutes) {
         const hrs = Math.floor(minutes / 60);
         const mins = minutes % 60;
@@ -435,7 +467,6 @@
 
     function updateTimerDisplay() {
         document.getElementById('timerDisplay').textContent = formatTime(studyMinutes);
-        updateGoalProgress();
     }
 
     async function saveTodayActivity() {
@@ -460,6 +491,7 @@
                 .from('daily_activity')
                 .insert({ user_id: currentUserId, activity_date: today, study_minutes: studyMinutes });
         }
+        updateGoalProgress();
     }
 
     function startTimer() {
@@ -514,7 +546,8 @@
         await loadGroup();
     }
 
-    async function loadDailyGoal() {
+    // НОВАЯ ФУНКЦИЯ: Обновление прогресса цели
+    async function updateGoalProgress() {
         if (!currentUserId) return;
         const today = new Date().toISOString().split('T')[0];
         
@@ -528,16 +561,13 @@
         const goal = data?.daily_goal_minutes || 60;
         const studied = data?.study_minutes || studyMinutes;
         
-        document.getElementById('goalProgressText').textContent = `${studied} / ${goal} мин`;
+        document.getElementById('goalText').textContent = `${studied} / ${goal} мин`;
         const percent = Math.min((studied / goal) * 100, 100);
-        document.getElementById('goalProgressFill').style.width = `${percent}%`;
+        document.getElementById('goalFill').style.width = `${percent}%`;
     }
 
-    async function updateGoalProgress() {
-        await loadDailyGoal();
-    }
-
-    async function updateStatus() {
+    // НОВАЯ ФУНКЦИЯ: Обновление кастомного статуса
+    async function updateCustomStatus() {
         const input = document.getElementById('statusInput');
         const newStatus = input.value.trim();
         if (!newStatus || !currentUserId) return;
@@ -550,6 +580,7 @@
         await loadGroup();
     }
 
+    // Достижения
     async function loadAchievements() {
         if (!currentUserId) return;
         
@@ -594,6 +625,7 @@
         if (error && error.code !== '23505') console.error('Error:', error);
     }
 
+    // Чат
     async function loadMessages() {
         const { data } = await supabase
             .from('messages')
@@ -610,7 +642,7 @@
         }
         
         container.innerHTML = data.map(msg => `
-            <div class="message-item ${msg.user_id === currentUserId ? 'mine' : ''}">
+            <div class="message ${msg.user_id === currentUserId ? 'message-mine' : ''}">
                 <div class="message-sender">${escapeHtml(msg.username)}</div>
                 <div>${escapeHtml(msg.message)}</div>
                 <div class="message-reactions">
@@ -639,8 +671,7 @@
         await supabase.from('messages').insert({
             user_id: currentUserId,
             username: profile?.username || 'User',
-            message: message,
-            created_at: new Date().toISOString()
+            message: message
         });
         
         input.value = '';
@@ -652,6 +683,7 @@
         await loadRanking();
     }
 
+    // Рейтинг
     async function loadRanking() {
         const { data } = await supabase
             .from('profiles')
@@ -673,6 +705,7 @@
         `).join('');
     }
 
+    // Группа
     async function loadGroup() {
         const { data } = await supabase.from('profiles').select('*').order('username');
         if (!data) return;
@@ -685,15 +718,16 @@
         container.innerHTML = data.map(user => `
             <div class="member-item">
                 <div>
-                    <span>${onlineIds.has(user.id) ? '🟢' : '⚪'}</span>
+                    <span class="online-dot ${onlineIds.has(user.id) ? 'online' : ''}"></span>
                     <strong>${escapeHtml(user.username)}</strong>
-                    <div style="font-size:12px;">${escapeHtml(user.custom_status || 'Без статуса')}</div>
+                    <div class="member-status">${escapeHtml(user.custom_status || 'Без статуса')}</div>
                 </div>
                 <div>${user.level} ур.</div>
             </div>
         `).join('');
     }
 
+    // Авторизация
     async function recordLogin() {
         if (!currentUserId) return;
         const today = new Date().toISOString().split('T')[0];
@@ -737,7 +771,7 @@
         }
         
         document.getElementById('statusInput').value = existing?.custom_status || 'Без статуса';
-        await loadDailyGoal();
+        await updateGoalProgress();
     }
 
     function setupRealtime() {
@@ -748,7 +782,6 @@
         channel.subscribe();
     }
 
-    // ========== АВТОРИЗАЦИЯ (РАБОЧАЯ) ==========
     async function login() {
         await supabase.auth.signInWithOAuth({
             provider: 'google',
@@ -782,7 +815,7 @@
             await loadMessages();
             await loadRanking();
             await loadAchievements();
-            await loadDailyGoal();
+            await updateGoalProgress();
             
             setInterval(updateHeartbeat, 30000);
             await updateHeartbeat();
@@ -804,11 +837,11 @@
     document.getElementById('logoutBtn')?.addEventListener('click', logout);
     document.getElementById('sendBtn')?.addEventListener('click', sendMessage);
     document.getElementById('chatInput')?.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
-    document.getElementById('startTimerBtn')?.addEventListener('click', startTimer);
-    document.getElementById('pauseTimerBtn')?.addEventListener('click', pauseTimer);
-    document.getElementById('stopTimerBtn')?.addEventListener('click', stopTimer);
-    document.getElementById('statusInput')?.addEventListener('change', updateStatus);
-    document.getElementById('statusInput')?.addEventListener('blur', updateStatus);
+    document.getElementById('startBtn')?.addEventListener('click', startTimer);
+    document.getElementById('pauseBtn')?.addEventListener('click', pauseTimer);
+    document.getElementById('stopBtn')?.addEventListener('click', stopTimer);
+    document.getElementById('statusInput')?.addEventListener('blur', updateCustomStatus);
+    document.getElementById('statusInput')?.addEventListener('keypress', (e) => { if (e.key === 'Enter') updateCustomStatus(); });
 
     supabase.auth.onAuthStateChange((event, session) => {
         if (event === 'SIGNED_IN' && session?.user) onAuthStateChange(session.user);
