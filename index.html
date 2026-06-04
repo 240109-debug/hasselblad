@@ -333,7 +333,6 @@
         <h1 style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">StudyTrack</h1>
         <p style="margin-top: 8px; color: #6b7280;">минималистичный трекер учёбы</p>
         <button id="googleLoginBtn" class="google-btn">Войти через Google</button>
-        <div id="loginError" style="color: red; margin-top: 12px; font-size: 14px;"></div>
     </div>
 </div>
 
@@ -408,13 +407,7 @@
     const SUPABASE_KEY = 'sb_publishable_P2C0spTptEtbFwopcsjCLQ_iSoLnED7';
     const SITE_URL = 'https://240109-debug.github.io/hasselblad/';
 
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
-        auth: {
-            autoRefreshToken: true,
-            persistSession: true,
-            detectSessionInUrl: true
-        }
-    });
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     let currentUser = null;
     let currentUserId = null;
@@ -433,7 +426,6 @@
     setAutoTheme();
     setInterval(setAutoTheme, 60000);
 
-    // Функции таймера
     function formatTime(minutes) {
         const hrs = Math.floor(minutes / 60);
         const mins = minutes % 60;
@@ -756,20 +748,12 @@
         channel.subscribe();
     }
 
+    // ========== АВТОРИЗАЦИЯ (РАБОЧАЯ) ==========
     async function login() {
-        const errorDiv = document.getElementById('loginError');
-        errorDiv.textContent = 'Открывается окно входа...';
-        
-        const { error } = await supabase.auth.signInWithOAuth({
+        await supabase.auth.signInWithOAuth({
             provider: 'google',
-            options: { 
-                redirectTo: SITE_URL
-            }
+            options: { redirectTo: SITE_URL }
         });
-        
-        if (error) {
-            errorDiv.textContent = 'Ошибка: ' + error.message;
-        }
     }
 
     async function logout() {
