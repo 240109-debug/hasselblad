@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hasselblad | Минималистичный трекер</title>
+    <title>StudyTrack | Минималистичный трекер</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * {
@@ -22,7 +22,6 @@
             min-height: 100vh;
         }
 
-        /* Темная тема включается автоматически с 19:00 до 7:00 */
         body.dark {
             background: #0f172a;
             color: #f1f5f9;
@@ -50,7 +49,6 @@
             display: none !important;
         }
 
-        /* Карточки */
         .card {
             background: #ffffff;
             border: 1px solid #e5e7eb;
@@ -60,7 +58,6 @@
             transition: all 0.2s;
         }
 
-        /* Сетка */
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -91,7 +88,8 @@
             cursor: pointer;
             width: 100%;
             margin-top: 24px;
-            transition: opacity 0.2s;
+            transition: all 0.2s;
+            font-size: 16px;
         }
 
         body.dark .google-btn {
@@ -101,9 +99,9 @@
 
         .google-btn:hover {
             opacity: 0.9;
+            transform: translateY(-1px);
         }
 
-        /* Шапка */
         .header {
             display: flex;
             justify-content: space-between;
@@ -121,6 +119,9 @@
             font-size: 24px;
             font-weight: 700;
             letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .user-area {
@@ -132,7 +133,7 @@
         .avatar {
             width: 44px;
             height: 44px;
-            background: #3b82f6;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -155,7 +156,12 @@
             color: #f1f5f9;
         }
 
-        /* Статус */
+        .logout-btn:hover {
+            background: #ef4444;
+            color: white;
+            border-color: #ef4444;
+        }
+
         .status-input {
             width: 100%;
             padding: 12px 16px;
@@ -172,7 +178,6 @@
             color: white;
         }
 
-        /* Прогресс-бар */
         .progress-section {
             margin: 20px 0;
         }
@@ -192,14 +197,13 @@
         }
 
         .progress-bar-fill {
-            background: #3b82f6;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
             width: 0%;
             height: 100%;
             border-radius: 60px;
             transition: width 0.3s;
         }
 
-        /* Таймер */
         .timer-circle {
             text-align: center;
             padding: 20px;
@@ -210,6 +214,7 @@
             font-weight: 700;
             font-family: monospace;
             margin: 20px 0;
+            color: #3b82f6;
         }
 
         .timer-buttons {
@@ -225,6 +230,7 @@
             border-radius: 40px;
             cursor: pointer;
             font-weight: 500;
+            transition: all 0.2s;
         }
 
         body.dark .timer-btn {
@@ -232,9 +238,16 @@
             color: #f1f5f9;
         }
 
-        .timer-btn.start { background: #3b82f6; color: white; border: none; }
+        .timer-btn.start {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            border: none;
+        }
 
-        /* Чат */
+        .timer-btn:hover {
+            transform: scale(1.02);
+        }
+
         .chat-messages {
             height: 320px;
             overflow-y: auto;
@@ -253,7 +266,7 @@
         }
 
         .message-item.mine {
-            background: #3b82f6;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             color: white;
             align-self: flex-end;
         }
@@ -279,7 +292,9 @@
             transition: opacity 0.2s;
         }
 
-        .reaction-btn:hover { opacity: 1; }
+        .reaction-btn:hover {
+            opacity: 1;
+        }
 
         .chat-input-area {
             display: flex;
@@ -307,6 +322,7 @@
             border-radius: 60px;
             padding: 0 24px;
             cursor: pointer;
+            transition: all 0.2s;
         }
 
         body.dark .send-btn {
@@ -314,7 +330,10 @@
             color: #111827;
         }
 
-        /* Рейтинг и Группа */
+        .send-btn:hover {
+            opacity: 0.9;
+        }
+
         .rank-list, .member-list {
             display: flex;
             flex-direction: column;
@@ -333,7 +352,6 @@
             border-bottom-color: #334155;
         }
 
-        /* Достижения */
         .achievements-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -353,7 +371,7 @@
         }
 
         .achievement-card.earned {
-            background: #3b82f6;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             color: white;
         }
 
@@ -362,7 +380,6 @@
             margin-bottom: 8px;
         }
 
-        /* Адаптивность */
         @media (max-width: 768px) {
             body { padding: 16px; }
             .grid-2 { grid-template-columns: 1fr; }
@@ -375,35 +392,33 @@
 <!-- Login Page -->
 <div id="loginPage" class="login-wrapper">
     <div class="login-card card">
-        <h1>hasselblad</h1>
-        <p style="margin-top: 8px; color: #6b7280;">минималистичный трекер</p>
-        <button id="googleLoginBtn" class="google-btn">Sign in with Google</button>
+        <h1 style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">StudyTrack</h1>
+        <p style="margin-top: 8px; color: #6b7280;">минималистичный трекер учёбы</p>
+        <button id="googleLoginBtn" class="google-btn">Войти через Google</button>
     </div>
 </div>
 
 <!-- Main App -->
 <div id="app" class="container hidden">
     <div class="header">
-        <div class="logo">hasselblad</div>
+        <div class="logo">StudyTrack</div>
         <div class="user-area">
             <span id="userName"></span>
             <div class="avatar" id="userAvatar">A</div>
-            <button id="logoutBtn" class="logout-btn">Exit</button>
+            <button id="logoutBtn" class="logout-btn">Выйти</button>
         </div>
     </div>
 
     <div class="grid-2">
-        <!-- Левая колонка -->
         <div>
-            <!-- Статус -->
             <div class="card">
-                <h3 style="margin-bottom: 8px;">Current status</h3>
-                <input type="text" id="statusInput" class="status-input" maxlength="50" placeholder="What are you doing?">
+                <h3 style="margin-bottom: 8px;">Мой статус</h3>
+                <input type="text" id="statusInput" class="status-input" maxlength="50" placeholder="Что делаешь?">
                 
                 <div class="progress-section">
                     <div class="progress-label">
-                        <span>Daily goal</span>
-                        <span id="goalProgressText">0 / 60 min</span>
+                        <span>Дневная цель</span>
+                        <span id="goalProgressText">0 / 60 мин</span>
                     </div>
                     <div class="progress-bar-bg">
                         <div class="progress-bar-fill" id="goalProgressFill"></div>
@@ -411,54 +426,48 @@
                 </div>
 
                 <div class="timer-circle">
-                    <div class="timer-display" id="timerDisplay">0 min</div>
+                    <div class="timer-display" id="timerDisplay">0 мин</div>
                     <div class="timer-buttons">
-                        <button id="startTimerBtn" class="timer-btn start">Start</button>
-                        <button id="pauseTimerBtn" class="timer-btn">Pause</button>
-                        <button id="stopTimerBtn" class="timer-btn">Stop</button>
+                        <button id="startTimerBtn" class="timer-btn start">Старт</button>
+                        <button id="pauseTimerBtn" class="timer-btn">Пауза</button>
+                        <button id="stopTimerBtn" class="timer-btn">Стоп</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Достижения -->
             <div class="card">
-                <h3 style="margin-bottom: 16px;">Achievements</h3>
-                <div id="achievementsList" class="achievements-grid">Loading...</div>
+                <h3 style="margin-bottom: 16px;">Достижения</h3>
+                <div id="achievementsList" class="achievements-grid">Загрузка...</div>
             </div>
         </div>
 
-        <!-- Правая колонка -->
         <div>
-            <!-- Чат -->
             <div class="card">
-                <h3 style="margin-bottom: 16px;">Chat</h3>
-                <div id="chatMessages" class="chat-messages">Loading...</div>
+                <h3 style="margin-bottom: 16px;">Чат</h3>
+                <div id="chatMessages" class="chat-messages">Загрузка...</div>
                 <div class="chat-input-area">
-                    <input type="text" id="chatInput" class="chat-input" placeholder="Type a message...">
-                    <button id="sendBtn" class="send-btn">Send</button>
+                    <input type="text" id="chatInput" class="chat-input" placeholder="Напиши сообщение...">
+                    <button id="sendBtn" class="send-btn">Отправить</button>
                 </div>
             </div>
 
-            <!-- Рейтинг и Группа -->
             <div class="card">
-                <h3 style="margin-bottom: 16px;">Rankings</h3>
-                <div id="rankingList" class="rank-list">Loading...</div>
+                <h3 style="margin-bottom: 16px;">Рейтинг студентов</h3>
+                <div id="rankingList" class="rank-list">Загрузка...</div>
             </div>
 
             <div class="card">
-                <h3 style="margin-bottom: 16px;">Group</h3>
-                <div id="groupList" class="member-list">Loading...</div>
+                <h3 style="margin-bottom: 16px;">Группа</h3>
+                <div id="groupList" class="member-list">Загрузка...</div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    // ========== ВАШИ ДАННЫЕ ==========
     const SUPABASE_URL = 'https://oehsdmymjanazugnmrhi.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_P2C0spTptEtbFwopcsjCLQ_iSoLnED7';
     const SITE_URL = 'https://240109-debug.github.io/hasselblad/';
-    // =================================
 
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -466,7 +475,6 @@
     let currentUserId = null;
     let studyMinutes = 0;
     let timerInterval = null;
-    let isTimerRunning = false;
 
     // ========== АВТОМАТИЧЕСКАЯ ТЕМА ==========
     function setAutoTheme() {
@@ -478,14 +486,14 @@
         }
     }
     setAutoTheme();
-    setInterval(setAutoTheme, 60000); // Проверяем каждую минуту
+    setInterval(setAutoTheme, 60000);
 
     // ========== ФУНКЦИИ ТАЙМЕРА ==========
     function formatTime(minutes) {
         const hrs = Math.floor(minutes / 60);
         const mins = minutes % 60;
-        if (hrs > 0) return `${hrs}h ${mins}m`;
-        return `${mins}m`;
+        if (hrs > 0) return `${hrs}ч ${mins}м`;
+        return `${mins}м`;
     }
 
     function updateTimerDisplay() {
@@ -519,7 +527,6 @@
 
     function startTimer() {
         if (timerInterval) clearInterval(timerInterval);
-        isTimerRunning = true;
         timerInterval = setInterval(async () => {
             studyMinutes++;
             updateTimerDisplay();
@@ -529,14 +536,13 @@
                 await updateProfileStats();
                 await checkAchievements();
             }
-        }, 60000); // 60000 мс = 1 минута
+        }, 60000);
     }
 
     function pauseTimer() {
         if (timerInterval) {
             clearInterval(timerInterval);
             timerInterval = null;
-            isTimerRunning = false;
         }
     }
 
@@ -551,7 +557,6 @@
         await updateProfileStats();
     }
 
-    // ========== ОБНОВЛЕНИЕ СТАТИСТИКИ ПРОФИЛЯ ==========
     async function updateProfileStats() {
         if (!currentUserId) return;
         
@@ -571,20 +576,6 @@
         
         await loadRanking();
         await loadGroup();
-        await loadUserLevel();
-    }
-
-    async function loadUserLevel() {
-        if (!currentUserId) return;
-        const { data } = await supabase
-            .from('profiles')
-            .select('level, xp_points')
-            .eq('id', currentUserId)
-            .single();
-        
-        if (data) {
-            document.getElementById('userLevel').textContent = `Lvl ${data.level}`;
-        }
     }
 
     // ========== ЕЖЕДНЕВНАЯ ЦЕЛЬ ==========
@@ -602,7 +593,7 @@
         const goal = data?.daily_goal_minutes || 60;
         const studied = data?.study_minutes || studyMinutes;
         
-        document.getElementById('goalProgressText').textContent = `${studied} / ${goal} min`;
+        document.getElementById('goalProgressText').textContent = `${studied} / ${goal} мин`;
         const percent = Math.min((studied / goal) * 100, 100);
         document.getElementById('goalProgressFill').style.width = `${percent}%`;
     }
@@ -611,7 +602,7 @@
         await loadDailyGoal();
     }
 
-    // ========== СТАТУС (поле ввода) ==========
+    // ========== СТАТУС ==========
     async function updateStatus() {
         const input = document.getElementById('statusInput');
         const newStatus = input.value.trim();
@@ -625,7 +616,7 @@
         await loadGroup();
     }
 
-    // ========== ДОСТИЖЕНИЯ (новые названия) ==========
+    // ========== ДОСТИЖЕНИЯ ==========
     async function loadAchievements() {
         if (!currentUserId) return;
         
@@ -660,25 +651,10 @@
             .eq('id', currentUserId)
             .single();
         
-        // Endurance (7200 минут = 120 часов? Нет, 2 часа подряд = 120 минут)
-        if (studyMinutes >= 120) {
-            await earnAchievement(3); // Endurance
-        }
-        
-        // Dedication
-        if (profile?.total_study_minutes >= 600) {
-            await earnAchievement(4); // Dedication
-        }
-        
-        // Chatterbox
-        if (profile?.messages_count >= 20) {
-            await earnAchievement(5); // Chatterbox
-        }
-        
-        // Heart of Team
-        if (profile?.messages_count >= 50) {
-            await earnAchievement(7); // Heart of Team
-        }
+        if (studyMinutes >= 120) await earnAchievement(3);
+        if (profile?.total_study_minutes >= 600) await earnAchievement(4);
+        if (profile?.messages_count >= 20) await earnAchievement(5);
+        if (profile?.messages_count >= 50) await earnAchievement(7);
         
         await loadAchievements();
         await loadRanking();
@@ -690,11 +666,11 @@
             .insert({ user_id: currentUserId, achievement_id: achievementId });
         
         if (error && error.code !== '23505') {
-            console.error('Error earning achievement:', error);
+            console.error('Error:', error);
         }
     }
 
-    // ========== ЧАТ С РЕАКЦИЯМИ ==========
+    // ========== ЧАТ ==========
     async function loadMessages() {
         const { data } = await supabase
             .from('messages')
@@ -706,7 +682,7 @@
         if (!container) return;
         
         if (!data || data.length === 0) {
-            container.innerHTML = '<div style="text-align:center;">No messages yet</div>';
+            container.innerHTML = '<div style="text-align:center;">Нет сообщений</div>';
             return;
         }
         
@@ -783,15 +759,15 @@
         if (!container) return;
         
         if (!data || data.length === 0) {
-            container.innerHTML = '<div>No data</div>';
+            container.innerHTML = '<div>Нет данных</div>';
             return;
         }
         
         container.innerHTML = data.map((user, idx) => `
             <div class="rank-item">
                 <span style="font-weight:600;">${idx+1}.</span>
-                <span><strong>${escapeHtml(user.username)}</strong> (Lvl ${user.level})</span>
-                <span>${Math.floor(user.total_study_minutes / 60)}h</span>
+                <span><strong>${escapeHtml(user.username)}</strong> (${user.level} ур.)</span>
+                <span>${Math.floor(user.total_study_minutes / 60)}ч</span>
             </div>
         `).join('');
     }
@@ -819,14 +795,14 @@
                 <div>
                     <span>${onlineIds.has(user.id) ? '🟢' : '⚪'}</span>
                     <strong>${escapeHtml(user.username)}</strong>
-                    <div style="font-size:12px;">${escapeHtml(user.custom_status || 'Just chilling')}</div>
+                    <div style="font-size:12px;">${escapeHtml(user.custom_status || 'Без статуса')}</div>
                 </div>
-                <div>Lvl ${user.level}</div>
+                <div>${user.level} ур.</div>
             </div>
         `).join('');
     }
 
-    // ========== АВТОМАТИЧЕСКАЯ ЗАПИСЬ ВХОДА ==========
+    // ========== АВТОРИЗАЦИЯ ==========
     async function recordLogin() {
         if (!currentUserId) return;
         const today = new Date().toISOString().split('T')[0];
@@ -844,26 +820,22 @@
                 .insert({ user_id: currentUserId, login_time: new Date().toISOString() });
             
             const hour = new Date().getHours();
-            if (hour < 8) {
-                await earnAchievement(1); // Morning Star
-            }
+            if (hour < 8) await earnAchievement(1);
         }
     }
 
-    // ========== ПЕРВАЯ СЕССИЯ ==========
     async function checkFirstSession() {
         const { data } = await supabase
-            .from('study_sessions')
+            .from('daily_activity')
             .select('id')
             .eq('user_id', currentUserId)
             .limit(1);
         
         if (!data || data.length === 0) {
-            await earnAchievement(2); // First Step
+            await earnAchievement(2);
         }
     }
 
-    // ========== HEARTBEAT ==========
     async function updateHeartbeat() {
         if (!currentUserId) return;
         await supabase
@@ -873,7 +845,6 @@
         await loadGroup();
     }
 
-    // ========== ПРОФИЛЬ ПРИ ВХОДЕ ==========
     async function syncProfile(user) {
         const { data: existing } = await supabase
             .from('profiles')
@@ -888,7 +859,7 @@
                     id: user.id,
                     email: user.email,
                     username: user.user_metadata?.full_name || user.email?.split('@')[0],
-                    custom_status: 'Just chilling',
+                    custom_status: 'Без статуса',
                     level: 1,
                     xp_points: 0
                 });
@@ -898,12 +869,10 @@
             updateTimerDisplay();
         }
         
-        document.getElementById('statusInput').value = existing?.custom_status || 'Just chilling';
+        document.getElementById('statusInput').value = existing?.custom_status || 'Без статуса';
         await loadDailyGoal();
-        await loadUserLevel();
     }
 
-    // ========== REAL-TIME ==========
     function setupRealtime() {
         const channel = supabase.channel('realtime');
         channel.on('postgres_changes', { event: '*', schema: 'public', table: 'messages' }, () => loadMessages());
@@ -915,18 +884,23 @@
         channel.subscribe();
     }
 
-    // ========== АВТОРИЗАЦИЯ ==========
     async function login() {
-        await supabase.auth.signInWithOAuth({
+        const { error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
-            options: { redirectTo: SITE_URL }
+            options: { 
+                redirectTo: SITE_URL
+            }
         });
+        if (error) {
+            console.error('Login error:', error);
+            alert('Ошибка входа: ' + error.message);
+        }
     }
 
     async function logout() {
         pauseTimer();
         await supabase.auth.signOut();
-        location.reload();
+        window.location.reload();
     }
 
     function escapeHtml(str) {
@@ -943,7 +917,8 @@
             await checkFirstSession();
             
             document.getElementById('userName').textContent = user.user_metadata?.full_name || user.email;
-            document.getElementById('userAvatar').textContent = (user.user_metadata?.full_name || user.email || 'U')[0].toUpperCase();
+            const avatarLetter = (user.user_metadata?.full_name || user.email || 'U')[0].toUpperCase();
+            document.getElementById('userAvatar').textContent = avatarLetter;
             
             await loadGroup();
             await loadMessages();
@@ -966,7 +941,7 @@
         }
     }
 
-    // ========== НАЗНАЧАЕМ ОБРАБОТЧИКИ ==========
+    // Обработчики
     document.getElementById('googleLoginBtn')?.addEventListener('click', login);
     document.getElementById('logoutBtn')?.addEventListener('click', logout);
     document.getElementById('sendBtn')?.addEventListener('click', sendMessage);
